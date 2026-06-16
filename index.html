@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — fakeMangoCraft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --border: rgba(255,255,255,0.07);
+    --border-bright: rgba(255,255,255,0.13);
+    --text: #e8e6f0;
+    --muted: #7a788a;
+    --accent: #8b7cf8;
+    --accent-dim: rgba(139,124,248,0.12);
+    --accent-glow: rgba(139,124,248,0.25);
+    --gold: #c9a96e;
+    --gold-dim: rgba(201,169,110,0.1);
+    --mono: 'JetBrains Mono', monospace;
+    --serif: 'EB Garamond', serif;
+    --sans: 'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* Navigation */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 3rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 3rem 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-tagline {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+  }
+
+  .hero-equation {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+    border-left: 2px solid var(--accent);
+    padding-left: 1rem;
+    margin-bottom: 3rem;
+    opacity: 0.7;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    font-size: 13px;
+    font-family: var(--mono);
+    padding: 0.65rem 1.5rem;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    display: inline-block;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    border: 1px solid var(--accent);
+  }
+
+  .btn-primary:hover { opacity: 0.85; }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border-bright);
+  }
+
+  .btn-outline:hover { color: var(--text); border-color: var(--accent); }
+
+  /* Sections */
+  .section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 5rem 3rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 80px;
+  }
+
+  /* About */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-text {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    line-height: 1.85;
+    color: #c8c6d8;
+  }
+
+  .about-interests {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .interest-tag {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    font-size: 13px;
+    color: var(--muted);
+    transition: border-color 0.2s, color 0.2s;
+    background: var(--surface);
+  }
+
+  .interest-tag:hover { border-color: var(--accent); color: var(--text); }
+
+  .interest-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .interest-dot.gold { background: var(--gold); }
+
+  /* Projects */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .project-card {
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.5rem;
+    background: var(--surface);
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .project-card:hover { border-color: var(--border-bright); background: #14141c; }
+  .project-card:hover::before { opacity: 1; }
+
+  .project-field {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .project-field.gold { color: var(--gold); }
+
+  .project-title {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+
+  .project-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+  }
+
+  .project-link {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  .project-link:hover { opacity: 1; }
+
+  .project-card.placeholder {
+    border-style: dashed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 160px;
+    cursor: default;
+  }
+
+  .placeholder-inner {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .placeholder-inner span {
+    display: block;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.3;
+  }
+
+  /* Timeline */
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 2rem;
+    padding: 1.75rem 0;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+
+  .timeline-item:last-child { border-bottom: none; }
+
+  .timeline-year {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--muted);
+    padding-top: 0.2rem;
+  }
+
+  .timeline-content-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+
+  .timeline-content-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .timeline-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 2px;
+    background: var(--accent-dim);
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-badge.gold {
+    background: var(--gold-dim);
+    color: var(--gold);
+  }
+
+  /* Contact */
+  .contact-block {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 480px;
+  }
+
+  .contact-line {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .contact-line a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .contact-line a:hover { text-decoration: underline; }
+
+  /* Footer */
+  footer {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 3rem;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media (max-width: 680px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 5rem 1.5rem 3rem; }
+    .section { padding: 3rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .timeline-item { grid-template-columns: 80px 1fr; gap: 1rem; }
+    footer { flex-direction: column; gap: 0.5rem; padding: 1.5rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ticker { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">fakeMangoCraft</div>
+  <ul class="nav-links">
+    <li><a href="#about">about</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#learning">learning</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <h1 class="hero-name">Physics,<br>Math &amp; <em>Curiosity</em></h1>
+  <p class="hero-tagline">
+    I learn by going deep. This is a living record of that journey — from calculus
+    to quantum mechanics, from robotics to research.
+  </p>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">view projects →</a>
+    <a href="https://github.com/fakeMangoCraft" class="btn btn-outline">github profile</a>
+  </div>
+</section>
+
+<!-- About -->
+<section class="section" id="about">
+  <p class="section-label">about</p>
+  <div class="about-grid">
+    <div class="about-text">
+      I'm a student driven by the beauty of first principles. Rather than waiting
+      to be taught, I work through textbooks, build things, and write up what I
+      learn — from single-variable calculus all the way up to quantum mechanics
+      and linear algebra. Science isn't just a subject to me; it's how I think.
+    </div>
+    <div class="about-interests">
+      <div class="interest-tag"><span class="interest-dot"></span> Quantum mechanics &amp; wave functions</div>
+      <div class="interest-tag"><span class="interest-dot"></span> Linear algebra &amp; abstract math</div>
+      <div class="interest-tag"><span class="interest-dot"></span> Calculus &amp; real analysis</div>
+      <div class="interest-tag"><span class="interest-dot gold"></span> Robotics &amp; embedded systems</div>
+      <div class="interest-tag"><span class="interest-dot gold"></span> Programming &amp; simulation</div>
+      <div class="interest-tag"><span class="interest-dot gold"></span> Physics research (in progress)</div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section class="section" id="projects">
+  <p class="section-label">projects</p>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <p class="project-field">Mathematics</p>
+      <h3 class="project-title">Self-Study: Calculus from First Principles</h3>
+      <p class="project-desc">
+        Working through limits, derivatives, and integrals independently — with
+        hand-written proofs, solved problem sets, and my own explanations of
+        key theorems.
+      </p>
+      <a href="#" class="project-link">view notes →</a>
+    </div>
+
+    <div class="project-card">
+      <p class="project-field">Mathematics</p>
+      <h3 class="project-title">Linear Algebra Study Journal</h3>
+      <p class="project-desc">
+        Exploring vector spaces, eigenvalues, matrix decompositions, and geometric
+        intuition. Includes visualizations and applications to physics.
+      </p>
+      <a href="#" class="project-link">view project →</a>
+    </div>
+
+    <div class="project-card">
+      <p class="project-field gold">Physics</p>
+      <h3 class="project-title">Introduction to Quantum Mechanics</h3>
+      <p class="project-desc">
+        Self-directed study of the Schrödinger equation, operators, and the
+        postulates of QM — working through Griffiths and supplementary materials.
+      </p>
+      <a href="#" class="project-link">view notes →</a>
+    </div>
+
+    <div class="project-card">
+      <p class="project-field gold">Robotics</p>
+      <h3 class="project-title">Robotics Build Log</h3>
+      <p class="project-desc">
+        Hands-on robotics projects — from motor control and sensors to autonomous
+        decision-making. Documenting builds, failures, and lessons learned.
+      </p>
+      <a href="#" class="project-link">view project →</a>
+    </div>
+
+    <!-- Placeholder for future projects -->
+    <div class="project-card placeholder">
+      <div class="placeholder-inner">
+        <span>+</span>
+        More projects coming soon
+      </div>
+    </div>
+
+    <div class="project-card placeholder">
+      <div class="placeholder-inner">
+        <span>+</span>
+        Research project — in progress
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Learning timeline -->
+<section class="section" id="learning">
+  <p class="section-label">learning journey</p>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-year">Starting out</div>
+      <div>
+        <span class="timeline-badge">Mathematics</span>
+        <p class="timeline-content-title">Calculus — Single &amp; Multivariable</p>
+        <p class="timeline-content-desc">Built the foundation independently: limits, continuity, differentiation, integration, and series. Then extended to multivariable calculus and vector fields.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">Going deeper</div>
+      <div>
+        <span class="timeline-badge">Mathematics</span>
+        <p class="timeline-content-title">Linear Algebra</p>
+        <p class="timeline-content-desc">Vector spaces, linear transformations, eigentheory, and SVD. Motivated by its connections to both quantum mechanics and machine learning.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">Current</div>
+      <div>
+        <span class="timeline-badge gold">Physics</span>
+        <p class="timeline-content-title">Quantum Mechanics</p>
+        <p class="timeline-content-desc">Working through the mathematical formalism of QM — state vectors, operators, measurement, and the time-dependent Schrödinger equation.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">Ongoing</div>
+      <div>
+        <span class="timeline-badge gold">Robotics &amp; Code</span>
+        <p class="timeline-content-title">Applied Projects</p>
+        <p class="timeline-content-desc">Building robots and writing simulations alongside the theory — using code as a way to test and visualize mathematical ideas.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-year">Next</div>
+      <div>
+        <span class="timeline-badge">Research</span>
+        <p class="timeline-content-title">Research — coming soon</p>
+        <p class="timeline-content-desc">Planning to work on an original research question in physics or applied mathematics. This space will be updated as it develops.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="section" id="contact">
+  <p class="section-label">contact</p>
+  <div class="contact-block">
+    <p style="color: var(--muted); font-size: 15px; margin-bottom: 1rem;">
+      Open to conversations about physics, math, or collaboration on interesting problems.
+    </p>
+    <div class="contact-line">
+      <span style="color: var(--accent); font-size: 11px; width: 60px;">github</span>
+      <a href="https://github.com/fakeMangoCraft">github.com/fakeMangoCraft</a>
+    </div>
+    <div class="contact-line">
+      <span style="color: var(--accent); font-size: 11px; width: 60px;">email</span>
+      <a href="mailto:your@email.com">your@email.com</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>fakeMangoCraft · physics &amp; mathematics portfolio</span>
+  <span>built with github pages</span>
+</footer>
+
+</body>
+</html>
